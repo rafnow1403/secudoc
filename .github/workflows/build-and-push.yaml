@@ -15,7 +15,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::060595330994:role/GITHUB-OIDC-ECR-PUSH
+          role-to-assume: arn:aws:iam::060595330994:role/github_actions
           role-session-name: samplerolesession
           aws-region: ${{ env.AWS_REGION }}
       - name: List files in S3 bucket
