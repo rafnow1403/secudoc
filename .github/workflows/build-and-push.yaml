@@ -9,6 +9,7 @@ permissions:
   contents: read    # This is required for actions/checkout
 jobs:
   Unit_Test:
+    timeout-minutes: 1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,6 +22,7 @@ jobs:
         run: npm test
 
   Build_Docker_Image:
+    timeout-minutes: 3
     needs: Unit_Test
     runs-on: ubuntu-latest
     steps:
