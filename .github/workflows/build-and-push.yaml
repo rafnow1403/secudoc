@@ -1,0 +1,23 @@
+name: Build and Push to ECR
+on:
+  push
+env:
+  BUCKET_NAME : "1403automated.xyz"
+  AWS_REGION : "eu-central-1"
+# permission can be added at job level or workflow level
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+jobs:
+  S3PackageUpload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::060595330994:role/GITHUB-OIDC-ECR-PUSH
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+      - name: List files in S3 bucket
+        run: |
+          aws s3 ls s3://${{ env.BUCKET_NAME }}
