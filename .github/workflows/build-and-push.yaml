@@ -8,7 +8,7 @@ permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
 jobs:
-  Unit Test:
+  Unit_Test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,8 +17,8 @@ jobs:
       - name: Run Unit Tests
         run: npm test
 
-  Build Docker Image:
-    needs: Unit Test
+  Build_Docker_Image:
+    needs: Unit_Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
