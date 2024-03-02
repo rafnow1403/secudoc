@@ -91,7 +91,12 @@ jobs:
       - name: Search for CRITICAL vulnerabilities
         id: search-critical
         run: |
-         if jq 'any(.imageScanFindings.findings[]; .severity == "CRITICAL")' image-scan-findings.json; then exit 1; else echo "SAFE"; fi
+          if [[ $(jq '.imageScanFindings.findings | length' image-scan-findings.json) -gt 0 ]] && [[ jq 'any(.imageScanFindings.findings[]; .severity == "CRITICAL")' image-scan-findings.json ]]; then
+            echo "CRITICAL vulnerabilities found"
+            exit 1
+          else
+            echo "SAFE"
+          fi
       
       - name: List vulnerabilities
         if: failure()
