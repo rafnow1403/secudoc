@@ -22,6 +22,8 @@ jobs:
           node-version: 21
           cache: 'npm'
 
+      - run: npm ci
+
       - name: Run Unit Tests
         run: npm test
 
