@@ -73,10 +73,10 @@ jobs:
           # outputs: type=docker,dest=/tmp/${{ env.REPOSITORY }}.tar
           push: true
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        env:
-          REPOSITORY: ${{ env.REPOSITORY }}
-        with:
-          name: ${{ env.REPOSITORY }}
-          path: /tmp/${{ env.REPOSITORY }}.tar
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   env:
+      #     REPOSITORY: ${{ env.REPOSITORY }}
+      #   with:
+      #     name: ${{ env.REPOSITORY }}
+      #     path: /tmp/${{ env.REPOSITORY }}.tar
