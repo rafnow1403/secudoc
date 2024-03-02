@@ -103,3 +103,7 @@ jobs:
         run: |
           echo # Found Vulnerabilities > $GITHUB_STEP_SUMMARY
           echo $(jq '.imageScanFindings.findings[] | select(.severity == "CRITICAL") | .name,.description,.uri,.severity ' image-scan-findings.json) >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify safety
+        if: success()
+        run: echo "# No Vulnerabilities found" >> $GITHUB_STEP_SUMMARY

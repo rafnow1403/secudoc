@@ -2,7 +2,7 @@
 Secure doc storage
 # Preface
 This repo is a proof of concept for entire SDLC. Main focus is on workflows, what should they do, when, and why. It should test whether shown approach will enhance security, speed and quality of deployed applications.
-# 
+# More Explanation
 With that in mind entire pipeline in steps:
 
 1. On every push in every branch
@@ -20,3 +20,10 @@ With that in mind entire pipeline in steps:
   7. Integration test
   8. Update helm values.yaml in PRD
   9. Integration test
+
+  # Dependencies
+  Currently to make it work we need also a registry- ECR in this case
+  Standalone deployment of ECR as well as OIDC provider with role and policies are in https://github.com/rafnow1403/infra-ecr
+  
+  To deploy this application I used EKS which is available in https://github.com/rafnow1403/14a-deploy-eks 
+  For now it's bit of a mess since everything is in one place and done "the hard way" kind of. Argocd App of apps will be moved to another repository in the near future to separate infra from application deployments 
