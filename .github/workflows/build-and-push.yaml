@@ -3,6 +3,7 @@ on:
   push
 env:
   AWS_REGION : "eu-central-1"
+  REPOSITORY: secudoc
 # permission can be added at job level or workflow level
 permissions: write-all # change this to granular permissions
   # id-token: write   # This is required for requesting the JWT
@@ -51,11 +52,24 @@ jobs:
         with:
           mask-password: 'false'
 
-      - name: Build, tag, and push docker image to Amazon ECR
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and export
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: secudoc
+          REPOSITORY: ${{ env.REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          outputs: type=docker,dest=/tmp/$REPOSITORY.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        env:
+          REPOSITORY: ${{ env.REPOSITORY }}
+        with:
+          name: $REPOSITORY
+          path: /tmp/$REPOSITORY.tar
