@@ -94,7 +94,7 @@ jobs:
          if jq 'any(.imageScanFindings.findings[]; .severity == "CRITICAL")' findings.json; then exit 1; else echo "SAFE"; fi
       
       - name: List vulnerabilities
-        on: failure
+        if: failure()
         run: |
           echo # Found Vulnerabilities > $GITHUB_STEP_SUMMARY
           echo $(jq '.imageScanFindings.findings[] | select(.severity == "CRITICAL") | .name,.description,.uri,.severity ' findings.json) >> $GITHUB_STEP_SUMMARY
