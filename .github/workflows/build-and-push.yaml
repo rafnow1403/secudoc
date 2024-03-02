@@ -69,7 +69,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           context: .
-          tags: ${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
           # outputs: type=docker,dest=/tmp/${{ env.REPOSITORY }}.tar
           push: true
 
