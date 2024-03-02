@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          tags: $REPOSITORY:$IMAGE_TAG
           outputs: type=docker,dest=/tmp/$REPOSITORY.tar
 
       - name: Upload artifact
