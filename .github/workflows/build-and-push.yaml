@@ -36,7 +36,7 @@ jobs:
           reporter: jest-junit        # Format of test results
 
   Build_Docker_Image:
-    timeout-minutes: 3
+    timeout-minutes: 2
     needs: Unit_Test
     runs-on: ubuntu-latest
     steps:
