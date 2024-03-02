@@ -17,8 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install depnedencies
-        run: npm install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: 'npm'
 
       - name: Run Unit Tests
         run: npm test
@@ -67,9 +69,9 @@ jobs:
           outputs: type=docker,dest=/tmp/${{ env.REPOSITORY }}.tar
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         env:
           REPOSITORY: ${{ env.REPOSITORY }}
         with:
-          name: $REPOSITORY
-          path: /tmp/$REPOSITORY.tar
+          name: ${{ env.REPOSITORY }}
+          path: /tmp/${{ env.REPOSITORY }}.tar
