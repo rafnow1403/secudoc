@@ -1,0 +1,31 @@
+name: Create Draft Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get application version
+        id: get_version
+        run: echo VERSION=`jq -r .version package.json` >> ${{ GITHUB_ENV }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          draft: true
+          prerelease: false
+
+      - name: Output the release URL
+        run: echo "Release URL is ${{ steps.create_release.outputs.html_url }}"

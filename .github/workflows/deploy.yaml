@@ -1,0 +1,50 @@
+name: Deploy to environments
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    environment: 
+      name: dev
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run tests
+      run: echo "Running tests for DEV environment"
+
+    - name: Deploy
+      run: echo "Deploying to DEV environment"
+
+  stg:
+    needs: dev
+    runs-on: ubuntu-latest
+    environment: 
+      name: stg
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run tests
+      run: echo "Running tests for STG environment"
+
+    - name: Deploy
+      run: echo "Deploying to STG environment"
+
+  prd:
+    needs: stg
+    runs-on: ubuntu-latest
+    environment: 
+      name: prd
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run tests
+      run: echo "Running tests for PRD environment"
+
+    - name: Deploy
+      run: echo "Deploying to PRD environment"
