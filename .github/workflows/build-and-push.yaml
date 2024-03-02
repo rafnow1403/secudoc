@@ -70,7 +70,7 @@ jobs:
           cache-to: type=gha,mode=max
           context: .
           tags: ${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
-          outputs: type=docker,dest=/tmp/${{ env.REPOSITORY }}.tar
+          # outputs: type=docker,dest=/tmp/${{ env.REPOSITORY }}.tar
           push: true
 
       - name: Upload artifact
