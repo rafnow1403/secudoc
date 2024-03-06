@@ -1,0 +1,4 @@
+apiVersion: v2
+name: secudoc
+description: SecuDoc Helm Chart for Kubernetes Deployment
+version: 0.1.0

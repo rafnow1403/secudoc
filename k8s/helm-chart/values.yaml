@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: private-registy.io/secudoc
+  tag: latest
+  pullPolicy: IfNotPresent
+
+api:
+  name: api
+  port: 3000
+  labels:
+    - app: api
+    - project: secudoc
+
+service:
+  port: 80
